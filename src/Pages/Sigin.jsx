@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 import Loading from "../Components/Loading";
+import { UploaderReact } from "../Components/uploaderImages";
 
 export function SigIn() {
     const navigate = useNavigate();
@@ -30,16 +31,17 @@ export function SigIn() {
         }
         setDesativado(true);
         setLoading(true);
-        const promise = axios.post("https://marcus-mywallet.herokuapp.com/login", body)
+        const promise = axios.post("localhost:5000/login", body)
         promise.then(async res => {
             console.log(res.data);
-            navigate('/wallet');
+            navigate('/home');
         });
         promise.catch(e => {
             setDesativado(false);
             setLoading(false);
-            alert("Ops! Não conseguimos encontrar seu cadastro...");
-            navigate("/signup");
+            const confirmar = window.confirm("Ops! Não conseguimos encontrar seu cadastro... Deseja cadastrar?")
+            console.log(confirmar)
+            if(!!confirmar) navigate("/signup");
         })
     }
 
@@ -68,10 +70,11 @@ export function SigIn() {
                         required />
                     <button type="submit" disabled={desativado}>{loading ? <Loading></Loading> : 'Entrar'}</button>
                 </form>
-                <Link to={"/sign-up"} style={{ textDecoration: 'none' }}>
+                <Link to={"/signup"} style={{ textDecoration: 'none' }}>
                     <h3>Primeira vez? Cadastre-se!</h3>
                 </Link>
             </Container>
+            <UploaderReact/>
         </div>
     );
 }
@@ -81,7 +84,6 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     width: 90%;
-    margin-top: 5vh;
     max-width: 500px;
     
     header{
@@ -129,6 +131,10 @@ const Container = styled.div`
         }
     }
     button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
         width: 250px;
         height: 50px;
         background: #D90E0E;
@@ -138,14 +144,21 @@ const Container = styled.div`
         font-family: 'Nunito Sans';
         font-size: 24px;
         color: #FFFFFF;
+        :hover {
+            cursor: pointer;
+            transform: translateY(-5px) ;
+        }
     }
-    
+
     h3{
-        margin-top: 20px;
+        margin: 40px 0;
+        font-family: 'Nunito Sans';
         font-style: normal;
-        font-weight: 700;
-        font-size: 15px;
+        font-weight: 400;
+        font-size: 18px;
+        text-decoration-line: underline;
         color: #FFFFFF;
+        letter-spacing: 0.11em;
     }
     
 `
