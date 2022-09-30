@@ -52,7 +52,7 @@ const Container = styled.div`
   svg {
     margin-left: 10px;
   }
-  @media screen and (max-width: 600px){ 
+  @media screen and (max-width: 768px){ 
     input{
       width: 100%;
     }

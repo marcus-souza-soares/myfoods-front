@@ -17,7 +17,7 @@ export function SigUp() {
 
   const cadastrar = e => {
     e.preventDefault();
-    const validaNome = /^[a-zA-Z]{3,}$/;
+    const validaNome = /^[a-zA-Z]{3,}/;
     const validaEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+/;
     const validaSenha = /^[0-9a-zA-Z$*&@#]{6,}$/;
 
@@ -36,22 +36,24 @@ export function SigUp() {
     const body = {
       name: nome,
       email,
-      password: password01
+      password: password01,
+      confirmPassword: password02
     }
 
     setDesativado(true);
     setLoading(true);
 
-    const promise = axios.post("localhost:5000/register", body)
+    const promise = axios.post("http://localhost:5000/register", body);
     promise.then(res => {
       console.log(res.data);
       navigate('/signin');
     });
-    promise.catch(res => {
-      console.log(res.data);
+    promise.catch(error => {
+      alert(error.response.data);
+    }).finally(() => {
+      setLoading(false);
+      setDesativado(false);
     });
-    setLoading(false);
-    setDesativado(false);
   }
 
 
@@ -181,6 +183,9 @@ const Container = styled.div`
         text-decoration-line: underline;
         color: #FFFFFF;
         letter-spacing: 0.11em;
+        :hover{
+          cursor: pointer;
+        }
     }
     
 `

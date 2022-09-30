@@ -31,17 +31,22 @@ export function SigIn() {
         }
         setDesativado(true);
         setLoading(true);
-        const promise = axios.post("localhost:5000/login", body)
-        promise.then(async res => {
+        const promise = axios.post("http://localhost:5000/login", body)
+        promise.then(res => {
+            localStorage.setItem('LinkrAuthUser', JSON.stringify(res.data.user));
+            localStorage.setItem('LinkrAuthToken', res.data.token);
             console.log(res.data);
-            navigate('/home');
+            navigate('/');
         });
         promise.catch(e => {
+            alert(e.response.data)
+            if (e.response.data === "Verifique os campos novamente!") {
+                const confirmar = window.confirm("Ops! Não conseguimos encontrar seu cadastro... Deseja cadastrar?");
+                if (!!confirmar) navigate("/signup");
+            }
+        }).finally(() => {
             setDesativado(false);
             setLoading(false);
-            const confirmar = window.confirm("Ops! Não conseguimos encontrar seu cadastro... Deseja cadastrar?")
-            console.log(confirmar)
-            if(!!confirmar) navigate("/signup");
         })
     }
 
@@ -74,7 +79,6 @@ export function SigIn() {
                     <h3>Primeira vez? Cadastre-se!</h3>
                 </Link>
             </Container>
-            <UploaderReact/>
         </div>
     );
 }
