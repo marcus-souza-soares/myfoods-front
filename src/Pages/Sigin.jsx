@@ -2,9 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
+import { api } from "../services/api"
 import Loading from "../Components/Loading";
-import { UploaderReact } from "../Components/uploaderImages";
 
 export function SigIn() {
     const navigate = useNavigate();
@@ -33,6 +32,7 @@ export function SigIn() {
         setLoading(true);
         const promise = axios.post("http://localhost:5000/login", body)
         promise.then(res => {
+            api.defaults.headers['Authorization'] = res.data.token;
             localStorage.setItem('LinkrAuthUser', JSON.stringify(res.data.user));
             localStorage.setItem('LinkrAuthToken', res.data.token);
             console.log(res.data);

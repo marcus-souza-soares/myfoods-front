@@ -11,11 +11,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storagedUser = localStorage.getItem('LinkrAuthUser');
     const storagedToken = localStorage.getItem('LinkrAuthToken');
-
-    // if (storagedUser && storagedToken) {
     
-    //   setUserData(JSON.parse(storagedUser));
-    // }
+    if (storagedUser && storagedToken) {
+      setUserData(JSON.parse(storagedUser));
+    }
   }, []);
 
   const logout = (sessionExpired = true) => {
