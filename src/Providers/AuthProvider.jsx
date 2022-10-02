@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-// import { alert } from '../Helpers/alert';
+import { alert } from '../Helpers/alert';
 
 
 const AuthContext = createContext();
@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storagedUser = localStorage.getItem('LinkrAuthUser');
     const storagedToken = localStorage.getItem('LinkrAuthToken');
-    
+
     if (storagedUser && storagedToken) {
       setUserData(JSON.parse(storagedUser));
     }
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = (sessionExpired = true) => {
     if (sessionExpired) {
-      //alert('error', 'Your session expired', 'Log in again!');
+      alert('error', 'Your session expired', 'Log in again!');
     }
     setUserData(null);
     localStorage.removeItem('LinkrAuthUser');

@@ -2,6 +2,7 @@ import GlobalStyle from "./Themes/GlobalStyle";
 import { BrowserRouter } from 'react-router-dom';
 import { HandleRoute } from "./Routes/HandleRouter";
 import { AuthProvider } from "./Providers/AuthProvider";
+import { RevenuesProvider } from "./Providers/revenuesProvider";
 
 
 function App() {
@@ -9,7 +10,9 @@ function App() {
     <BrowserRouter>
       <GlobalStyle />
       <AuthProvider>
-        <HandleRoute />
+        <RevenuesProvider>
+          <HandleRoute />
+        </RevenuesProvider>
       </AuthProvider>
     </BrowserRouter>
   );

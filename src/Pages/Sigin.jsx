@@ -4,8 +4,10 @@ import styled from "styled-components";
 import axios from "axios";
 import { api } from "../services/api"
 import Loading from "../Components/Loading";
+import { useAuth } from "../Providers/AuthProvider";
 
 export function SigIn() {
+    const { setUserData } = useAuth();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -35,6 +37,7 @@ export function SigIn() {
             api.defaults.headers['Authorization'] = res.data.token;
             localStorage.setItem('LinkrAuthUser', JSON.stringify(res.data.user));
             localStorage.setItem('LinkrAuthToken', res.data.token);
+            setUserData(res.data.user)
             console.log(res.data);
             navigate('/');
         });

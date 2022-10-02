@@ -61,7 +61,6 @@ export function SigUp() {
     <div className="default">
       <Container>
         <header>
-          <img src="imgs/logo.png" alt="logo.png" />
           <h1>MyFoods</h1>
         </header>
         <form onSubmit={cadastrar}>

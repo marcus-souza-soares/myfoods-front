@@ -14,7 +14,8 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-uploader": "^1.8.2",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "sweetalert2": "^11.4.37"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getCategories } from "../services/requests";
+import { getCategories, getRevenuesByCategories } from "../services/requests";
 import { FaPizzaSlice } from "react-icons/fa";
 import { FaCandyCane } from "react-icons/fa";
 import { BiDrink } from "react-icons/bi";
 import { FaCarrot } from "react-icons/fa";
 import { FaHamburger } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useRevenues } from "../Providers/revenuesProvider";
 
 export function Categories() {
   const hashTable = {
@@ -15,23 +17,39 @@ export function Categories() {
     Bebidas: <BiDrink />,
     Salgados: <FaHamburger />
   }
+  const navigate = useNavigate();
+  const { setRevenues } = useRevenues();
 
-  function Category({ name, icon }) {
-    return <div><span>{`${name} `}</span>{icon}</div>
+  function Category({ name, icon, categoryId }) {
+    const handleCategory = () => {
+      getRevenuesByCategories(categoryId).then(res => {
+        setRevenues(res.data);
+        console.log(res.data)
+        navigate("/category");
+      });
+    }
+
+    return <div onClick={handleCategory}><span>{`${name} `}</span>{icon}</div>
   }
 
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     getCategories().then(res => {
       setCategories([...res.data])
-      console.log(categories)
+    }).catch(e => {
+      alert(e.response)
     })
   }, [])
 
   return (
     <Container>
-      {categories.map(c => {
-        return <Category name={c.name} icon={hashTable[c.name]} />
+      {categories.map((c, i) => {
+        return <Category
+          key={i}
+          name={c.name}
+          icon={hashTable[c.name]}
+          categoryId={c.id}
+        />
       }
       )}
     </Container>
@@ -39,15 +57,18 @@ export function Categories() {
 }
 
 const Container = styled.div`
-  margin-top: 70px;
+  margin-top: 80px;
   background-color: inherit;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 
   div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 20px;
+    margin: 10px 20px;
     width: 115px;
     height: 41px;
     background: #FFFFFF;
