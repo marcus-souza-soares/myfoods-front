@@ -11,7 +11,7 @@ export function Home() {
     getRevenues().then(res => {
       setRevenues(res.data);
     })
-  }, [])
+  }, [setRevenues])
   return (
     <>
       <Header />
