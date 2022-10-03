@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import { useRevenues } from "../../Providers/revenuesProvider"
 import { Revenue } from "./Revenue";
+import Loading from "../Loading"
 
 export function RevenuesList({ revenues }) {
-  console.log(revenues);
-
+  const { loading } = useRevenues();
   return (
     <Container>
-      {revenues.map((r, i) => (
+      {loading ? <Loading ></Loading> : revenues.map((r, i) => (
         <div key={i}>
           <Revenue
             nome={r.nome}

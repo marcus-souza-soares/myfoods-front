@@ -4,12 +4,15 @@ const RevenuesContext = createContext();
 
 export const RevenuesProvider = ({ children }) => {
   const [revenues, setRevenues] = useState([]);
+  const [loading, setLoading] = useState(false)
 
   return (
     <RevenuesContext.Provider
       value={{
         revenues,
         setRevenues,
+        loading,
+        setLoading
       }}
     >
       {children}

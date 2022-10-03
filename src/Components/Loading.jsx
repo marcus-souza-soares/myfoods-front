@@ -1,9 +1,9 @@
 import { TailSpin } from "react-loader-spinner";
 
-export default function Loading(){
+export default function Loading({color}){
     return (
         <TailSpin
-            color="#FFFFFF"
+            color="#f77308"
             height={40}
             width={50}
             strokeWidth={3}>

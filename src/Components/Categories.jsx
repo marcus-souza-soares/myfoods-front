@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getCategories, getRevenuesByCategories } from "../services/requests";
+import { getCategories, getRevenues, getRevenuesByCategories } from "../services/requests";
 import { FaPizzaSlice } from "react-icons/fa";
 import { FaCandyCane } from "react-icons/fa";
 import { BiDrink } from "react-icons/bi";
@@ -8,6 +8,7 @@ import { FaCarrot } from "react-icons/fa";
 import { FaHamburger } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useRevenues } from "../Providers/revenuesProvider";
+import { AiFillHome } from "react-icons/ai";
 
 export function Categories() {
   const hashTable = {
@@ -15,17 +16,31 @@ export function Categories() {
     Doces: <FaCandyCane />,
     Fitness: <FaCarrot />,
     Bebidas: <BiDrink />,
-    Salgados: <FaHamburger />
+    Salgados: <FaHamburger />,
+    Todas: <AiFillHome />
   }
   const navigate = useNavigate();
-  const { setRevenues } = useRevenues();
+  const { setRevenues, setLoading } = useRevenues();
 
   function Category({ name, icon, categoryId }) {
+
     const handleCategory = () => {
+      setLoading(true)
+      if (name === "Todas") {
+        getRevenues().then(res => {
+          setRevenues(res.data);
+          setLoading(false);
+        }).catch(e => {
+          alert(e.response);
+        })
+        return navigate("/home");
+      }
       getRevenuesByCategories(categoryId).then(res => {
         setRevenues(res.data);
-        console.log(res.data)
+        setLoading(false);
         navigate("/category");
+      }).catch(e => {
+        alert(e.response);
       });
     }
 
@@ -35,7 +50,9 @@ export function Categories() {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     getCategories().then(res => {
-      setCategories([...res.data])
+      setCategories([...res.data, {
+        name: "Todas"
+      }])
     }).catch(e => {
       alert(e.response)
     })

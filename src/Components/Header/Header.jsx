@@ -17,8 +17,6 @@ export function Header() {
     }
   }, [userData])
 
-
-
   return (
     <Cotainer>
       {sidebar ? <Sidebar setSidebar={setSidebar}/> : ""}
@@ -44,6 +42,7 @@ const Cotainer = styled.div`
   background: #FF470D;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0px 0px 8px 8px;
+  z-index: 1;
   .user{
     display: flex;
     align-items: center;

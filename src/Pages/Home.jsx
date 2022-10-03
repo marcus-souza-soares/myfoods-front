@@ -10,8 +10,9 @@ export function Home() {
   useEffect(() => {
     getRevenues().then(res => {
       setRevenues(res.data);
+      console.log(res.data)
     })
-  }, [setRevenues])
+  }, [])
   return (
     <>
       <Header />

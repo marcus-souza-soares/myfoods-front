@@ -4,14 +4,14 @@ import { Categories } from "../Components/Categories";
 import { RevenuesList } from "../Components/Main/RevenuesList";
 
 export function RevenueByCategory() {
-  const { revenues, setRevenues } = useRevenues();
+  const { revenues } = useRevenues();
+  
   return (
     <>
       <Header />
       <Categories />
       <RevenuesList
         revenues={revenues}
-        setRevenues={setRevenues}
       />
     </>
 
