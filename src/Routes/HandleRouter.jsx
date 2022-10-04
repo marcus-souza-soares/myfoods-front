@@ -1,9 +1,17 @@
-import { useAuth } from '../Providers/AuthProvider';
-import { PrivateRouter } from './PrivateRouter';
-import { PublicRouter } from './PublicRouter';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { SigIn } from "../Pages/Sigin";
+import { SigUp } from "../Pages/Signup"
+import { Home } from "../Pages/Home"
+import { RevenueByCategory } from "../Pages/Category"
+import { Favorites } from '../Pages/Favorites';
 
-export const HandleRoute = () => {
-  const obj = { signed: false }
-  const { signed } = obj;
-  return signed ? <PrivateRouter /> : <PublicRouter />;
-};
+export const HandleRoute = () => (
+  <Routes>
+    <Route path='/' element={<Home />} />
+    <Route path='/signin' element={<SigIn />} />
+    <Route path='/signup' element={<SigUp />} />
+    <Route path='/category' element={<RevenueByCategory />} />
+    <Route path='/favorites' element={<Favorites />} />
+    <Route path='*' element={<Navigate to='/' replace />} />
+  </Routes>
+);

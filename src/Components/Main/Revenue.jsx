@@ -12,15 +12,19 @@ export function Revenue({ nome, imageURL, userId, id }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const changeFavorite = () => {
-
     if (isFavorite) {
       removeFavorite(id).then((res) => {
+        console.log(res)
         setIsFavorite(false);
+      }).catch(e => {
+        errorMessage(e.response.data);
       })
 
     } else {
       addFavorite(id).then(() => {
         setIsFavorite(true);
+      }).catch(e => {
+        errorMessage(e.response.data);
       })
     }
   }
@@ -34,11 +38,11 @@ export function Revenue({ nome, imageURL, userId, id }) {
           setIsFavorite(false);
         }
       }).catch(e => {
-        errorMessage(e.response.data)
+        errorMessage(e.response.data);
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [signed]);
 
   return (
     <Container>

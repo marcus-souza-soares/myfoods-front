@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { alert } from '../Helpers/alert';
+import { Navigate } from 'react-router-dom';
 
 
 const AuthContext = createContext();
@@ -21,16 +22,21 @@ export const AuthProvider = ({ children }) => {
     if (sessionExpired) {
       alert('error', 'Your session expired', 'Log in again!');
     }
-    setUserData(null);
     localStorage.removeItem('LinkrAuthUser');
     localStorage.removeItem('LinkrAuthToken');
+    setUserData(null);
+    window.location.reload();
   };
   const errorMessage = (msg) => {
-    if(msg === "Error ao validar o usuário" || msg === "Acesso não autorizado."){
-      return logout();
+    console.log(msg)
+    if (msg === "Error ao validar o usuário" || msg === "Acesso não autorizado.") {
+      return alert(
+        'error',
+        'OOPS...',
+        'Você precisa estar logado primeiro!',
+      );
     }
   }
-
   return (
     <AuthContext.Provider
       value={{
@@ -38,7 +44,7 @@ export const AuthProvider = ({ children }) => {
         userData,
         setUserData,
         logout,
-        errorMessage
+        errorMessage,
       }}
     >
       {children}

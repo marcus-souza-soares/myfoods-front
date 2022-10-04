@@ -2,15 +2,27 @@ import styled from "styled-components";
 import { GiTomato } from "react-icons/gi";
 import { MdFavorite, MdLogout, MdClose } from "react-icons/md";
 import { useAuth } from "../../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export function Sidebar({ setSidebar }) {
+
   const { logout } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <>
       <Container>
-        <div className="close" onClick={() => setSidebar(false)}><MdClose /></div>
-        <div className="option"><span>Minhas Receitas</span><GiTomato /></div>
-        <div className="option"><span>Favoritas</span><MdFavorite /></div>
+        <div className="close" onClick={() => setSidebar(false)}>
+          <MdClose />
+        </div>
+        <div className="option">
+          <span>Minhas Receitas</span>
+          <GiTomato />
+        </div>
+        <div className="option" onClick={() => navigate("/favorites")}>
+          <span>Favoritas</span>
+          <MdFavorite />
+        </div>
         <div className="option" onClick={logout}><span>Sair</span><MdLogout /></div>
       </Container>
       <Overlay onClick={() => setSidebar(false)} />
