@@ -5,9 +5,15 @@ import Loading from "../Loading"
 
 export function RevenuesList({ revenues }) {
   const { loading } = useRevenues();
-  return (
-    <Container>
-      {loading ? <Loading ></Loading> : revenues.map((r, i) => (
+
+  const Render = () => {
+
+    if (revenues.length === 0) {
+      return <div>Sorry... Não foram encontradas receitas nessa rota!</div>
+    } else if (loading) {
+      return <Loading />
+    } else {
+      return revenues.map((r, i) => (
         <div key={i}>
           <Revenue
             nome={r.nome}
@@ -16,7 +22,12 @@ export function RevenuesList({ revenues }) {
             id={r.id}
           />
         </div>
-      ))}
+      ))
+    }
+  }
+  return (
+    <Container>
+      <Render />
     </Container>
   )
 }

@@ -25,6 +25,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('LinkrAuthUser');
     localStorage.removeItem('LinkrAuthToken');
   };
+  const errorMessage = (msg) => {
+    if(msg === "Error ao validar o usuário" || msg === "Acesso não autorizado."){
+      return logout();
+    }
+  }
 
   return (
     <AuthContext.Provider
@@ -33,6 +38,7 @@ export const AuthProvider = ({ children }) => {
         userData,
         setUserData,
         logout,
+        errorMessage
       }}
     >
       {children}

@@ -2,50 +2,77 @@ import styled from "styled-components";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import { useAuth } from "../../Providers/AuthProvider";
 import { useEffect, useState } from "react";
-import { handleFavorite } from "../../services/requests"
+import { addFavorite, handleFavorite, removeFavorite } from "../../services/requests"
 
 export function Revenue({ nome, imageURL, userId, id }) {
   // const defaulPicture = "https://aeroclub-issoire.fr/wp-content/uploads/2020/05/image-not-found.jpg"
   const defaulPicture = "https://blog.myfitnesspal.com/wp-content/uploads/2017/12/Essential-Guide-to-Healthy-Eating-2.png";
 
-  const { setUserData, userData, signed } = useAuth();
+  const { signed, errorMessage } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
+
+  const changeFavorite = () => {
+
+    if (isFavorite) {
+      removeFavorite(id).then((res) => {
+        setIsFavorite(false);
+      })
+
+    } else {
+      addFavorite(id).then(() => {
+        setIsFavorite(true);
+      })
+    }
+  }
 
   useEffect(() => {
     if (signed) {
-      handleFavorite({ revenueId: id, userId: userData.id }).then(res => {
+      handleFavorite(id).then(res => {
         if (!!res.data) {
-          setIsFavorite(true);
+          setIsFavorite(true)
         } else {
           setIsFavorite(false);
         }
       }).catch(e => {
-        alert(e.response);
+        errorMessage(e.response.data)
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container>
       <img src={!imageURL ? defaulPicture : imageURL} alt={`${defaulPicture}.url`} />
       <div className="title">{nome}</div>
-      <span>{isFavorite ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}</span>
+      <span onClick={changeFavorite}>{isFavorite ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}</span>
     </Container>
   )
 }
 
 const Container = styled.div`
-  margin: 30px 12px;
-  width: 210px;
+  margin: 30px 8px;
+  width: 220px;
+  padding: 10px;
+  border-radius: 8px;
+  
   flex-wrap: wrap;
   position: relative;
+
   :hover {
     cursor: pointer;
+    background: #c5c3c3;
+    transition: background-color 0.5s;
+  }
+  :hover > img {
+      filter: brightness(0.7);
+      transition: filter 0.5s;
   }
   img {
     object-fit: cover;
     max-width: 100%;
+    height: 142px;
     border-radius: 10px;
+   
   }
   .title{
     margin-top: 5px;
@@ -57,8 +84,8 @@ const Container = styled.div`
   }
   span{
     position: absolute;
-    top: 10px;
-    right: 7px;
+    top: 12px;
+    right: 12px;
   }
   svg {
     width: 25px;

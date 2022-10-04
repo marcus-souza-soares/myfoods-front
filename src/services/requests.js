@@ -11,6 +11,12 @@ export async function getRevenuesByCategories(categoryId) {
 export async function getRevenues() {
   return await api.get("/revenues");
 }
-export async function handleFavorite({ revenueId, userId }) {
-  return await api.get(`/favorite/${revenueId}/${userId}`)
+export async function handleFavorite(revenueId) {
+  return await api.get(`/favorite?revenueId=${revenueId}`);
+}
+export async function addFavorite(revenueId){
+  return await api.post(`/favorite/add?revenueId=${revenueId}`); 
+}
+export async function removeFavorite(revenueId){
+  return await api.delete(`/favorite/remove?revenueId=${revenueId}`); 
 }
