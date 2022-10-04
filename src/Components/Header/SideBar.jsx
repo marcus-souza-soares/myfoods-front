@@ -15,7 +15,7 @@ export function Sidebar({ setSidebar }) {
         <div className="close" onClick={() => setSidebar(false)}>
           <MdClose />
         </div>
-        <div className="option">
+        <div className="option" onClick={() => navigate("/myrevenues")}>
           <span>Minhas Receitas</span>
           <GiTomato />
         </div>

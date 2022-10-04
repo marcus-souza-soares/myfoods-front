@@ -14,6 +14,9 @@ export async function getRevenues() {
 export async function getFavoriteRevenues(){
   return await api.get("/revenues/favorites")
 }
+export async function getMyRevenues(){
+  return await api.get("/revenues/personal")
+}
 export async function handleFavorite(revenueId) {
   return await api.get(`/favorite?revenueId=${revenueId}`);
 }
