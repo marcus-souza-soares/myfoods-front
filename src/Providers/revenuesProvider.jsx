@@ -5,6 +5,8 @@ const RevenuesContext = createContext();
 export const RevenuesProvider = ({ children }) => {
   const [revenues, setRevenues] = useState([]);
   const [loading, setLoading] = useState(false)
+  // const defaulPicture = "https://aeroclub-issoire.fr/wp-content/uploads/2020/05/image-not-found.jpg"
+  const defaulPicture = "https://blog.myfitnesspal.com/wp-content/uploads/2017/12/Essential-Guide-to-Healthy-Eating-2.png";
 
   return (
     <RevenuesContext.Provider
@@ -12,7 +14,8 @@ export const RevenuesProvider = ({ children }) => {
         revenues,
         setRevenues,
         loading,
-        setLoading
+        setLoading,
+        defaulPicture
       }}
     >
       {children}

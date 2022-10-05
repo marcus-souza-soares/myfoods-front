@@ -5,6 +5,7 @@ import { Home } from "../Pages/Home"
 import { RevenueByCategory } from "../Pages/Category"
 import { Favorites } from '../Pages/Favorites';
 import { MyRevenues } from '../Pages/MyRevenues';
+import { RevenuePage } from '../Pages/RevenuePage';
 
 export const HandleRoute = () => (
   <Routes>
@@ -14,6 +15,7 @@ export const HandleRoute = () => (
     <Route path='/category' element={<RevenueByCategory />} />
     <Route path='/favorites' element={<Favorites />} />
     <Route path='/myrevenues' element={<MyRevenues />} />
+    <Route path='/revenue/:id' element={<RevenuePage />} />
     <Route path='*' element={<Navigate to='/' replace />} />
   </Routes>
 );

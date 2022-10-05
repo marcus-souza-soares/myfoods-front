@@ -25,16 +25,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('LinkrAuthUser');
     localStorage.removeItem('LinkrAuthToken');
     setUserData(null);
-    window.location.reload();
   };
   const errorMessage = (msg) => {
     console.log(msg)
     if (msg === "Error ao validar o usuário" || msg === "Acesso não autorizado.") {
-      return alert(
-        'error',
-        'OOPS...',
-        'Você precisa estar logado primeiro!',
-      );
+      return logout();
     }
   }
   return (

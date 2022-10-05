@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { useRevenues } from "../../Providers/revenuesProvider"
 import { Revenue } from "./Revenue";
-import Loading from "../Loading"
+import Loading from "../Loading";
+import { MdAddCircle } from "react-icons/md";
+import { useAuth } from "../../Providers/AuthProvider";
 
 export function RevenuesList({ revenues }) {
   const { loading } = useRevenues();
+  const { signed } = useAuth()
 
   const Render = () => {
 
@@ -28,16 +31,37 @@ export function RevenuesList({ revenues }) {
   return (
     <Container>
       <Render />
+      {signed ? <div className="add-revenue"><MdAddCircle /></div> : ""}
     </Container>
   )
 }
 
-const Container = styled.div`
+const Container = styled.main`
   margin-top: 50px;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   max-width: 65vw;
+  .add-revenue{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    svg {
+      width: 50px;
+      height: 50px;
+      color: #FF470D;
+    }
+    :hover{
+      cursor: pointer;
+    }
+    :hover > svg {
+      filter: brightness(0.7);
+    }
+  }
   @media screen and (max-width: 768px){
     max-width: 90vh;
   }
