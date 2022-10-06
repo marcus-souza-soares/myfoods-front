@@ -64,20 +64,21 @@ const uploader = new Uploader({
 let UrlArray = []
 
 // Customize the dropzone UI (see "customization"):
-const options = { multi: true }
+const options = { multi: false }
 
 // Render the file upload dropzone:
-export const UploaderReact = () =>
+export const UploaderReact = ({ setImageURL }) =>
   <UploadDropzone uploader={uploader}       // Required.
-                  options={options}         // Optional.
-                  width="300px"             // Optional.
-                  height="300px"            // Optional.
-                  onUpdate={files => {      // Optional.
-                    if (files.length === 0) {
-                      console.log('No files selected.')
-                    } else {
-                      console.log('Files uploaded:');
-                      UrlArray = [...files]
-                      console.log(UrlArray);
-                    }
-                  }} />
+    options={options}         // Optional.
+    width="100%"             // Optional.
+    height="300px"            // Optional.
+    onUpdate={files => {      // Optional.
+      if (files.length === 0) {
+        console.log('No files selected.')
+      } else {
+        console.log('Files uploaded:');
+        UrlArray = [...files]
+        console.log(UrlArray);
+        setImageURL([...UrlArray]);
+      }
+    }} />

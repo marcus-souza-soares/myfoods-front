@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Search } from "./SearchInput";
 import { UserIcon } from "./UserIcon";
 import { useAuth } from "../../Providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Sidebar } from "./SideBar";
 
@@ -10,6 +10,7 @@ export function Header() {
   const { userData } = useAuth();
   const [name, setName] = useState("");
   const [sidebar, setSidebar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userData) {
@@ -20,7 +21,7 @@ export function Header() {
   return (
     <Cotainer>
       {sidebar ? <Sidebar setSidebar={setSidebar}/> : ""}
-      <h1>MyFoods</h1>
+      <h1 onClick={() => navigate("/home")}>MyFoods</h1>
       <Search />
       <div className="user">{!!userData ? <span className="desktop name">{`Bem vindo(a), ${name}`}
       </span> : <span><Link style={{ color: "#fff" }} to="/signin">Faça Login</Link></span>}
@@ -68,6 +69,10 @@ const Cotainer = styled.div`
     font-size: 64px;
     color: #FFFFFF;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    
+    :hover {
+      cursor: pointer;
+    }
   }
   svg {
     margin: 0 10px;

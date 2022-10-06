@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { alert } from '../Helpers/alert';
-import { Navigate } from 'react-router-dom';
-
 
 const AuthContext = createContext();
 

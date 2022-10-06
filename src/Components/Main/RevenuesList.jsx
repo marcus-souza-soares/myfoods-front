@@ -4,6 +4,7 @@ import { Revenue } from "./Revenue";
 import Loading from "../Loading";
 import { MdAddCircle } from "react-icons/md";
 import { useAuth } from "../../Providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 export function RevenuesList({ revenues }) {
   const { loading } = useRevenues();
@@ -31,7 +32,12 @@ export function RevenuesList({ revenues }) {
   return (
     <Container>
       <Render />
-      {signed ? <div className="add-revenue"><MdAddCircle /></div> : ""}
+      {signed ?
+        <div className="add-revenue">
+          <Link to="/revenue/new">
+            <MdAddCircle />
+          </Link>
+        </div> : ""}
     </Container>
   )
 }

@@ -6,7 +6,7 @@ import { addFavorite, handleFavorite, removeFavorite } from "../../services/requ
 import { useNavigate } from "react-router-dom";
 import { useRevenues } from "../../Providers/revenuesProvider";
 
-export function Revenue({ nome, imageURL, userId, id }) {
+export function Revenue({ nome, imageURL, id }) {
   
   const {defaulPicture} = useRevenues();
   const navigate = useNavigate()

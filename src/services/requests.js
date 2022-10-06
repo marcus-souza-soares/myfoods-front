@@ -32,3 +32,6 @@ export async function removeFavorite(revenueId) {
 export async function getUserById(userId) {
   return await api.get(`/user?userId=${userId}`);
 }
+export async function createRevenue(data) {
+  return api.post("/revenue/insert", data);
+}

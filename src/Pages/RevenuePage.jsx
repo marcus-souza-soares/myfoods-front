@@ -39,7 +39,7 @@ export function RevenuePage() {
           <Top>
             <h1>{revenue ? revenue.nome : ""}</h1>
             <h2>{`Feito por: ${criator}`}</h2>
-            <img src={revenue.imagURL ? revenue.imagURL : defaulPicture} alt="logo.png" />
+            <img src={revenue.imageURL ? revenue.imageURL : defaulPicture} alt="logo.png" />
           </Top>
           <Main>
             <h1 className="ingredientes">Ingredientes:</h1>
