@@ -49,7 +49,7 @@ export function SigUp() {
       navigate('/signin');
     });
     promise.catch(error => {
-      alert(error.response.data);
+      console.log(error);
     }).finally(() => {
       setLoading(false);
       setDesativado(false);
