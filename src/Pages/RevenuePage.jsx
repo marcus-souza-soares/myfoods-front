@@ -102,7 +102,8 @@ const Container = styled.main`
   }
   h3{
     margin: 10px 0;
-    text-align: justify;
+    text-align: left;
+    line-height: 25px;
   }
 `
 const Top = styled.div`
