@@ -61,20 +61,22 @@ export function NewRevenue() {
     ) {
       return alert('error', 'Não foi possível cadastrar essa receita!', 'Insira valores nos campos!');
     }
-    setDisabled(true);
-    const data = buildRevenue();
-    createRevenue(data).then(res => {
-      console.log(res.data);
-      alert(
-        'Good job!',
-        'Receita cadastrada com sucesso!',
-        'success');
-      Cancel();
-    }).catch(e => {
-      console.log(e.response);
-    }).finally(() => {
-      setDisabled(false);
-    });
+    if (!disabled) {
+      setDisabled(true);
+      const data = buildRevenue();
+      createRevenue(data).then(res => {
+        console.log(res.data);
+        alert(
+          'Good job!',
+          'Receita cadastrada com sucesso!',
+          'success');
+        Cancel();
+      }).catch(e => {
+        console.log(e.response);
+      }).finally(() => {
+        setDisabled(false);
+      });
+    }
   }
 
   function buildRevenue() {
@@ -146,9 +148,9 @@ export function NewRevenue() {
               </div>
             </div>
             <ul>
-              {ingredientes.map(i =>
-                <li>
-                  <h3>{i}</h3>
+              {ingredientes.map((e, i) =>
+                <li key={i}>
+                  <h3>{e}</h3>
                 </li>)}
             </ul>
           </div>
@@ -175,9 +177,9 @@ export function NewRevenue() {
               </div>
             </div>
             <ul>
-              {preparoList.map(i =>
-                <li>
-                  <h3>{i}</h3>
+              {preparoList.map((c, i) =>
+                <li key={i}>
+                  <h3>{c}</h3>
                 </li>)}
             </ul>
           </div>
@@ -191,7 +193,9 @@ export function NewRevenue() {
                 onChange={(e) => setCategoryName(e.target.value)}
               >
                 {categoriesList.length > 0 ? categoriesList.map((c, i) =>
-                  <FormControlLabel value={c.name} control={<Radio />} label={c.name} />
+                  <span key={i}>
+                    <FormControlLabel value={c.name} control={<Radio />} label={c.name} />
+                  </span>
                 ) : ""}
               </RadioGroup>
             </FormControl>
@@ -199,7 +203,7 @@ export function NewRevenue() {
         </Main>
         <div className="btn-options">
           <span onClick={Confirm}>
-            <Button variant="contained" color="success" disable={disabled}>
+            <Button variant="contained" color="success" >
               Confirmar
             </Button>
           </span>

@@ -44,8 +44,8 @@ export function RevenuePage() {
           <Main>
             <h1 className="ingredientes">Ingredientes:</h1>
             {ingredientes.length > 0 ?
-              <ul>{ingredientes.map(e =>
-                <li>
+              <ul>{ingredientes.map((e, i) =>
+                <li key={i}>
                   <h3>{e}</h3>
                 </li>)}
               </ul> : ""}
