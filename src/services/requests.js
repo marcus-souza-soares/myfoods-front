@@ -35,3 +35,6 @@ export async function getUserById(userId) {
 export async function createRevenue(data) {
   return api.post("/revenue/insert", data);
 }
+export const getSearchList = async (name) => {
+  return api.get("/search/" + name);
+}

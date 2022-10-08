@@ -19,22 +19,27 @@ export function Categories() {
     Salgados: <FaHamburger />,
     Todas: <AiFillHome />
   }
+
   const navigate = useNavigate();
   const { setRevenues, setLoading } = useRevenues();
 
   function Category({ name, icon, categoryId }) {
+    const [color, setColor] = useState("#fff");
 
     const handleCategory = () => {
+      console.log(color)
       setLoading(true)
       if (name === "Todas") {
         getRevenues().then(res => {
           setRevenues(res.data);
           setLoading(false);
+          
         }).catch(e => {
           alert(e.response);
         })
         return navigate("/home");
       }
+      setColor("#e2730b");
       getRevenuesByCategories(categoryId).then(res => {
         setRevenues(res.data);
         setLoading(false);
@@ -44,7 +49,10 @@ export function Categories() {
       });
     }
 
-    return <div onClick={handleCategory}><span>{`${name} `}</span>{icon}</div>
+    return  <CategoryDiv onClick={handleCategory} color={color}>
+              <span>{`${name} `}</span>
+              {icon}
+            </CategoryDiv>
   }
 
   const [categories, setCategories] = useState([]);
@@ -81,14 +89,15 @@ const Container = styled.div`
   align-items: center;
   flex-wrap: wrap;
 
-  div {
+`
+const CategoryDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 10px 20px;
     width: 115px;
     height: 41px;
-    background: #FFFFFF;
+    background: ${props => props.color};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     padding: 0 10px;
@@ -104,5 +113,5 @@ const Container = styled.div`
     svg{
       color: #FF470D;
     }
-  }
+
 `

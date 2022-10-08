@@ -37,7 +37,7 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   width: 275px;
-  z-index: 1;
+  z-index: 2;
   .close {
     margin-bottom: 150px;
   }

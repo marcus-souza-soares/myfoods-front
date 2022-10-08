@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { alert } from '../Helpers/alert';
 import { api } from '../services/api';
@@ -6,6 +7,7 @@ import { api } from '../services/api';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -16,7 +18,7 @@ export const AuthProvider = ({ children }) => {
       setUserData(JSON.parse(storagedUser));
     }
     api.defaults.headers['Authorization'] = storagedToken;
-    
+
   }, []);
 
   const logout = (sessionExpired = true) => {
@@ -26,6 +28,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('LinkrAuthUser');
     localStorage.removeItem('LinkrAuthToken');
     setUserData(null);
+    navigate("/home");
   };
   const errorMessage = (msg) => {
     console.log(msg)
