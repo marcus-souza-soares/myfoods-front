@@ -4,13 +4,17 @@ import { UserIcon } from "./UserIcon";
 import { useAuth } from "../../Providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Sidebar } from "./SideBar";
+import { Sidebar } from "../SideBar/SideBar";
+import { RevenueSearch } from "./RevenueSearch";
 
 export function Header() {
   const { userData } = useAuth();
   const [name, setName] = useState("");
   const [sidebar, setSidebar] = useState(false);
   const navigate = useNavigate();
+
+  const [searchList, setSearchList] = useState([]);
+  const [displayStatus, setDisplayStatus] = useState('none');
 
   useEffect(() => {
     if (userData) {
@@ -19,18 +23,34 @@ export function Header() {
   }, [userData])
 
   return (
-    <Cotainer>
-      {sidebar ? <Sidebar setSidebar={setSidebar}/> : ""}
+    <Container displayStatus={displayStatus}>
+      {sidebar ? <Sidebar setSidebar={setSidebar} /> : ""}
       <h1 onClick={() => navigate("/home")}>MyFoods</h1>
-      <Search />
+      <Search
+        searchList={searchList}
+        setSearchList={setSearchList}
+        displayStatus={displayStatus}
+        setDisplayStatus={setDisplayStatus}
+
+      />
       <div className="user">{!!userData ? <span className="desktop name">{`Bem vindo(a), ${name}`}
       </span> : <span><Link style={{ color: "#fff" }} to="/signin">Faça Login</Link></span>}
-        <UserIcon  setSidebar={setSidebar} sidebar={sidebar}/>
+        <UserIcon setSidebar={setSidebar} sidebar={sidebar} />
       </div>
-    </Cotainer>
+      <div className="list">
+        {searchList.length > 0 ? searchList.map((e, i) => {
+          return <RevenueSearch 
+                    name={e.nome} 
+                    picture={e.imageURL} 
+                    key={i} 
+                    id={e.id}
+                  />
+        }) : ""}
+      </div>
+    </Container>
   )
 }
-const Cotainer = styled.div`
+const Container = styled.div`
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -44,6 +64,21 @@ const Cotainer = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0px 0px 8px 8px;
   z-index: 1;
+
+  .list{
+    min-width: 350px;
+    width: 45vw;
+    position: absolute;
+    top: 70px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    display: ${props => props.displayStatus};
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    left: 50%;
+    margin-left: -25%;
+    box-shadow: 1px 1px 5px #494545;
+  }
   .user{
     display: flex;
     align-items: center;
@@ -84,7 +119,13 @@ const Cotainer = styled.div`
       transform: translateY(-5px);
     }
   }
-  @media screen and (max-width: 768px){ 
+  @media screen and (max-width: 768px){
+    .list{
+      left: 10px;
+      right: 10px;
+      margin-left: 0;
+      width: auto;
+    }
     .desktop {
       display: none;
     }
