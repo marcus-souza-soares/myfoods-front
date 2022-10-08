@@ -5,16 +5,19 @@ import { useEffect, useState } from "react";
 import { addFavorite, handleFavorite, removeFavorite } from "../../services/requests"
 import { useNavigate } from "react-router-dom";
 import { useRevenues } from "../../Providers/revenuesProvider";
+import { alert } from "../../Helpers/alert";
+
 
 export function Revenue({ nome, imageURL, id }) {
   
   const {defaulPicture} = useRevenues();
   const navigate = useNavigate()
-  const { signed, errorMessage, logout } = useAuth();
+  const { signed, errorMessage } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
 
   const changeFavorite = () => {
     if(signed){
+      console.log(signed)
       if (isFavorite) {
         removeFavorite(id).then((res) => {
           console.log(res)
@@ -31,7 +34,8 @@ export function Revenue({ nome, imageURL, id }) {
         })
       }
     } else {
-      logout();
+      setIsFavorite(false);
+      alert('error', 'Faça login primeiro');
     }
   }
 
@@ -79,7 +83,7 @@ const Container = styled.div`
   }
   img {
     object-fit: cover;
-    max-width: 100%;
+    width: 100%;
     height: 142px;
     border-radius: 10px;
    

@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { alert } from '../Helpers/alert';
+import { api } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -14,6 +15,8 @@ export const AuthProvider = ({ children }) => {
     if (storagedUser && storagedToken) {
       setUserData(JSON.parse(storagedUser));
     }
+    api.defaults.headers['Authorization'] = storagedToken;
+    
   }, []);
 
   const logout = (sessionExpired = true) => {
