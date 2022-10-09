@@ -24,10 +24,8 @@ export function Categories() {
   const { setRevenues, setLoading } = useRevenues();
 
   function Category({ name, icon, categoryId }) {
-    const [color, setColor] = useState("#fff");
 
     const handleCategory = () => {
-      console.log(color)
       setLoading(true)
       if (name === "Todas") {
         getRevenues().then(res => {
@@ -39,7 +37,6 @@ export function Categories() {
         })
         return navigate("/home");
       }
-      setColor("#e2730b");
       getRevenuesByCategories(categoryId).then(res => {
         setRevenues(res.data);
         setLoading(false);
@@ -49,7 +46,7 @@ export function Categories() {
       });
     }
 
-    return  <CategoryDiv onClick={handleCategory} color={color}>
+    return  <CategoryDiv onClick={handleCategory} >
               <span>{`${name} `}</span>
               {icon}
             </CategoryDiv>
@@ -97,7 +94,7 @@ const CategoryDiv = styled.div`
     margin: 10px 20px;
     width: 115px;
     height: 41px;
-    background: ${props => props.color};
+    background-color: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     padding: 0 10px;

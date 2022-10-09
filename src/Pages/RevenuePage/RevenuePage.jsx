@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getRevenueById, getUserById } from "../services/requests";
-import { Header } from "../Components/Header/Header"
+import { getRevenueById, getUserById } from "../../services/requests";
+import { Header } from "../../Components/Header/Header"
 import { useParams } from "react-router-dom";
-import { useRevenues } from "../Providers/revenuesProvider";
+import { useRevenues } from "../../Providers/revenuesProvider";
+import { HandleDelete } from "./HandleDelete"
 
 export function RevenuePage() {
   const [revenue, setRevenue] = useState({});
@@ -60,7 +61,6 @@ export function RevenuePage() {
         </>
       )
     }
-
     return (
       <div>
         <h1>Não encontramos essa receita!</h1>
@@ -72,6 +72,7 @@ export function RevenuePage() {
       <Header />
       <Container>
         <Render />
+        <HandleDelete revenue={revenue}/>
       </Container>
     </>
   )
@@ -83,6 +84,7 @@ const Container = styled.main`
   width: 100%;
   max-width: 65vw;
   flex-wrap: wrap;
+
   @media screen and (max-width: 768px) {
     height: 100%;
     max-width: 100vw;
@@ -113,6 +115,7 @@ const Top = styled.div`
   width: 100%;
   img {
     width: 100%;
+    max-width: 1080px;
     height: 500px;
     object-fit: cover;
     border-radius: 15px;
@@ -133,6 +136,7 @@ const Top = styled.div`
 const Main = styled.div`
   width: 100%;
   margin-bottom: 50px;
+  
   @media screen and (max-width: 768px){
     width: 90vw;
   }

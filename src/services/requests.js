@@ -38,3 +38,6 @@ export async function createRevenue(data) {
 export const getSearchList = async (name) => {
   return api.get("/search/" + name);
 }
+export const deleteRevenueById = (id) => {
+  return api.delete("/revenue/delete/" + id);
+}

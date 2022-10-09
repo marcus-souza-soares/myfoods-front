@@ -5,7 +5,7 @@ import { Home } from "../Pages/Home"
 import { RevenueByCategory } from "../Pages/Category"
 import { Favorites } from '../Pages/Favorites';
 import { MyRevenues } from '../Pages/MyRevenues';
-import { RevenuePage } from '../Pages/RevenuePage';
+import { RevenuePage } from '../Pages/RevenuePage/RevenuePage';
 import { NewRevenue } from '../Pages/NewRevenue';
 
 export const HandleRoute = () => (
