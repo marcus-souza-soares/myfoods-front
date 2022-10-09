@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 
 import Loading from "../Components/Loading";
+import { api } from "../services/api";
 
 export function SigUp() {
   const navigate = useNavigate();
@@ -43,11 +43,12 @@ export function SigUp() {
     setDesativado(true);
     setLoading(true);
 
-    const promise = axios.post("http://localhost:5000/register", body);
+    const promise = api.post("/register", body);
     promise.then(res => {
       console.log(res.data);
       navigate('/signin');
     });
+
     promise.catch(error => {
       console.log(error);
     }).finally(() => {
