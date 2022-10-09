@@ -17,7 +17,7 @@ export function RevenuesList({ revenues }) {
     } else if (loading) {
       return <Loading />
     } else {
-      return revenues.map((r, i) => (
+      return revenues.reverse().map((r, i) => (
         <div key={i}>
           <Revenue
             nome={r.nome}
