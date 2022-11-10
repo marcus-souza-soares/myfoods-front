@@ -6,8 +6,9 @@ import { useRevenues } from "../Providers/revenuesProvider"
 import { getRevenues } from "../services/requests"
 
 export function Home() {
-  const { revenues, setRevenues } = useRevenues();
+  const { revenues, setRevenues, setLoading } = useRevenues();
   useEffect(() => {
+    setLoading(true);
     getRevenues().then(res => {
       setRevenues(res.data);
       console.log(res.data)
