@@ -5,6 +5,7 @@ import Loading from "../Loading";
 import { MdAddCircle } from "react-icons/md";
 import { useAuth } from "../../Providers/AuthProvider";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export function RevenuesList({ revenues }) {
   const { loading } = useRevenues();
