@@ -12,10 +12,10 @@ export function RevenuesList({ revenues }) {
 
   const Render = () => {
 
-    if (revenues.length === 0) {
-      return <div>Sorry... Não foram encontradas receitas nessa rota!</div>
-    } else if (loading) {
+    if (loading) {
       return <Loading />
+    } else if (revenues.length === 0){
+      return <div>Sorry... Não foram encontradas receitas nessa rota!</div>
     } else {
       return revenues.reverse().map((r, i) => (
         <div key={i}>
