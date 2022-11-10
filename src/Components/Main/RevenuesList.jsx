@@ -5,6 +5,7 @@ import Loading from "../Loading";
 import { MdAddCircle } from "react-icons/md";
 import { useAuth } from "../../Providers/AuthProvider";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export function RevenuesList({ revenues }) {
   const { loading } = useRevenues();
@@ -12,10 +13,10 @@ export function RevenuesList({ revenues }) {
 
   const Render = () => {
 
-    if (revenues.length === 0) {
-      return <div>Sorry... Não foram encontradas receitas nessa rota!</div>
-    } else if (loading) {
+    if (loading) {
       return <Loading />
+    } else if (revenues.length === 0){
+      return <div>Sorry... Não foram encontradas receitas nessa rota!</div>
     } else {
       return revenues.reverse().map((r, i) => (
         <div key={i}>
