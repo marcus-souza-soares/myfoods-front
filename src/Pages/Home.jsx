@@ -12,6 +12,7 @@ export function Home() {
     getRevenues().then(res => {
       setRevenues(res.data);
       console.log(res.data)
+      setLoading(false);
     })
   }, [])
   return (
